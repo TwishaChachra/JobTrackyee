@@ -1,0 +1,21 @@
+<h1>New Application Entry</h1>
+<form method="post">
+    <fieldset>
+        <label for="name" class="col-2">Name: *</label>
+        <input name="name" id="name" required />
+    </fieldset>
+    <fieldset>
+        <label for="location" class="col-2">Location: *</label>
+        <input name="location" id="location" required />
+    </fieldset>
+    <fieldset>
+        <label for="role" class="col-2">Role: *</label>
+        <select name="role" id="role" required>
+            {{#each roles}}
+                <option>{{this.name}}</option>
+            {{/each}}
+        </select>
+    </fieldset>
+    
+    <button class="offset-2 btn btn-primary">Save</button>
+</form>

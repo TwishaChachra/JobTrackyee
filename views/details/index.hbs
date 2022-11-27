@@ -1,0 +1,21 @@
+<h1>Record of applied jobs</h1>
+{{!-- {{#if user}} --}}
+<a href="/details/create" class="btn btn-secondary">New application Entry</a>
+{{!-- {{/if}} --}}
+<section class="row">
+    {{!-- {{#each details}} --}}
+        <div class="card col-3 m-2">
+            <div class="card-body text-center h-200">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text">{{this.location}}</p>
+                <p class="badge-primary badge text-light">{{this.role}}</p>
+                {{!-- {{#if ../user}} --}}
+                <div>
+                    <a href="/details/edit/{{this._id}}">Edit</a>
+                    <a href="/details/delete/{{this._id}}" class="text-danger" onclick="return confirmDelete()">Delete</a>
+                </div>
+                {{!-- {{/if}} --}}
+            </div>
+        </div>
+    {{!-- {{/each}} --}}
+</section>

@@ -1,0 +1,11 @@
+<h1>Roles</h1>
+<a href="/roles/create" class = "btn btn-secondary">Insert a new role</a>
+<section class="row">
+    {{#each roles}}
+        <div class="card col-3 m-2">
+            <div class="card-body text-center h-200">
+                <h5 class="card-title">{{this.name}}</h5>
+            </div>
+        </div>
+    {{/each}}
+</section>

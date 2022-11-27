@@ -1,0 +1,20 @@
+<h1>Application Details</h1>
+<form method="post">
+    <fieldset>
+        <label for="name" class="col-2">Name: *</label>
+        <input name="name" id="name" required value="{{detail.name}}" />
+    </fieldset>
+    <fieldset>
+        <label for="location" class="col-2">Location: *</label>
+        <input name="location" id="location" required value="{{detail.location}}" />
+    </fieldset>
+    <fieldset>
+        <label for="role" class="col-2">Role: *</label>
+        <select name="role" id="role" required>
+            {{#each roles}}
+                {{createOption this.name ../detail.role}}
+            {{/each}}
+        </select>
+    </fieldset>
+    <button class="offset-2 btn btn-primary">Save</button>
+</form>
