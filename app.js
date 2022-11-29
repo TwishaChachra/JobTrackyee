@@ -7,11 +7,15 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const details = require('./routes/details');
-const roles = require('./routes/role');
+const role = require('./routes/role');
+const auth = require('./routes/auth')
+
+const passport = require('passport')
+const session = require('express-session')
+
 
 var app = express();
 
-// db conn w/mongoose and environment variables
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -25,7 +29,21 @@ mongoose.connect(process.env.DATABASE_URL)
     console.log('MongoDB Connection Failed')
   })
 
-// view engine setup
+  app.use(session({
+    secret:process.env.SESSION_SECRET,
+    resave:true,
+    saveUninitialized:false
+  }))
+  app.use(passport.initialize())
+  app.use(passport.session())
+  
+  const User = require('./models/user')
+  passport.use(User.createStrategy())
+  
+  passport.serializeUser(User.serializeUser())
+  passport.deserializeUser(User.deserializeUser())
+  
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -37,13 +55,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/role', role);
 app.use('/details', details);
-app.use('/roles', roles);
+app.use('/auth',auth)
 
 const hbs = require('hbs')
 
 hbs.registerHelper('createOption', (currentValue, selectedValue) => {
-  // if values match, add 'selected' attribute to this option tag
   let selectedProperty = ''
   if (currentValue === selectedValue) {
     selectedProperty = ' selected'
@@ -52,7 +70,6 @@ hbs.registerHelper('createOption', (currentValue, selectedValue) => {
   return new hbs.SafeString(`<option${selectedProperty}>${currentValue}</option>`)
 })
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });

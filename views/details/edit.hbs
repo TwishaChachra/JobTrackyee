@@ -11,7 +11,7 @@
     <fieldset>
         <label for="role" class="col-2">Role: *</label>
         <select name="role" id="role" required>
-            {{#each roles}}
+            {{#each role}}
                 {{createOption this.name ../detail.role}}
             {{/each}}
         </select>

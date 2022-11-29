@@ -4,17 +4,16 @@ const router = express.Router()
 const Detail = require('../models/details')
 
 const Role = require('../models/role')
-// const passport = require('passport')
+const passport = require('passport')
 
-// //auth check
-// function isAuthenticated(req,res,next){
-//     if(req.isAuthenticated()){
-//         return next()
-//     }
-//     else{
-//         res.redirect('/auth/login')
-//     }
-// }
+function isAuthenticated(req,res,next){
+    if(req.isAuthenticated()){
+        return next()
+    }
+    else{
+        res.redirect('/auth/login')
+    }
+}
 
 router.get('/', (req, res) => {
     Detail.find((err, details) => {
@@ -31,23 +30,23 @@ router.get('/', (req, res) => {
     }).sort('name')
 })
 
-router.get('/create', (req, res) => {
-    Role.find((err, roles) => {
+router.get('/create', isAuthenticated,(req, res) => {
+    Role.find((err, role) => {
         if (err) {
             console.log(err)
         }
         else {
-            res.render('role/create', {
-                title: 'Mention your desired role',
-                roles: roles,
+            res.render('details/create', {
+                title: 'Add a new application',
+                role: role,
                 user:req.user
             })
         }
     }).sort('name')   
 })
 
-router.post('/create',(req, res) => {
-    Detail.create(req.body, (err, details) => {
+router.post('/create',isAuthenticated,(req, res) => {
+    Detail.create(req.body, (err, detail) => {
         if (err) {
             console.log(err)
             res.end(err)
@@ -59,7 +58,7 @@ router.post('/create',(req, res) => {
 })
 
 
-router.get('/delete/:_id', (req, res) => {
+router.get('/delete/:_id',isAuthenticated, (req, res) => {
     Detail.remove({ _id: req.params._id }, (err) => {
         if (err) {
             console.log(err)
@@ -69,32 +68,34 @@ router.get('/delete/:_id', (req, res) => {
         }
     })
 })
-
-router.get('/edit/:_id', (req, res) => {
-    Detail.findById(req.params._id, (err, detail) => {
+router.get('/edit/:_id', isAuthenticated,(req, res) => {
+    
+    Role.find((err, role) => {
         if (err) {
             console.log(err)
         }
         else {
-            Role.find((err, roles) => {
+           
+            Detail.findById(req.params._id, (err, details) => {
                 if (err) {
                     console.log(err)
                 }
                 else {
-                     res.render('details/edit', {
+                    res.render('details/edit', { 
                         title: 'Application Details',
-                        detail: detail,
-                        roles: roles,
+                        role: role,
+                        details: details,
                         user:req.user
+
                     })
                 }
-            }).sort('name')      
+            })           
         }
-    })
+    }).sort('name')   
 })
 
-router.post('/edit/:_id', (req, res) => {
-    Place.findByIdAndUpdate({ _id: req.params._id }, req.body, null, (err, detail) => {
+router.post('/edit/:_id',isAuthenticated, (req, res) => {
+    Detail.findByIdAndUpdate({ _id: req.params._id }, req.body, null, (err, detail) => {
         if (err) {
             console.log(err)
         }
@@ -103,5 +104,6 @@ router.post('/edit/:_id', (req, res) => {
         }
     })
 })
+
 
 module.exports = router

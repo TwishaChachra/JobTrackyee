@@ -3,24 +3,22 @@ const Role = require('../models/role')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    Role.find((err, roles) => {
+    Role.find((err, role) => {
         if (err) {
             console.log(err)
         }
         else {
-            res.render('categories/index', {
-                roles: roles,
+            res.render('role/index', {
+                role: role,
                 user:req.user
             })
         }
     })
 })
-
 router.get('/create', (req, res) => {
-    res.render('roles/create')
-    res.render('roles/create', {
-        user: req.user})
+    res.render('role/create', { title: 'Add Role'})
 })
+
 
 router.post('/create', (req, res) => {
     Role.create(req.body, (err, role) => {
@@ -29,10 +27,9 @@ router.post('/create', (req, res) => {
             res.end(err)
         }
         else {
-            res.redirect('/roles')
+            res.redirect('/role')
         }
     })
 })
 
-// make public
 module.exports = router
