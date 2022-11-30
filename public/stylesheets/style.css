@@ -1,8 +1,47 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+    padding: 0px;
+    background-color: gray;
 }
 
 a {
   color: #00B7FF;
+}
+
+.about h1{
+  margin: 2%;
+  text-align: center;
+  font-weight:900 ;
+}
+.about-para{
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2,1fr);
+  margin: 8%;
+  margin-top: 5%;
+}
+.class-1{
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.about p{
+  font-size: 20px;
+font-family:'Times New Roman', Times, serif;
+font-weight:700
+}
+.about ul{
+  font-size: 20px;
+font-family:'Times New Roman', Times, serif ;
+font-weight: 700
+}
+.abt-1{
+  grid-column-start: 3;
+  grid-column-end: 4;
+}
+.about h2{
+  margin: 2%;
+  text-align: center;
+  font-weight:900 ;
 }

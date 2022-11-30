@@ -10,6 +10,8 @@
 <fieldset class="form-group">
   <label for="password" class="col-2 control-label">Password: *</label>
   <input name="password" id="password" type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  />
+  <img src="/images/show.png" alt="Show/Hide" id="showHide" onclick="showHidePassword()" />
+
 </fieldset>
 
 <fieldset class="form-group">
@@ -20,6 +22,9 @@
 
 <fieldset class="form-group">
 <button class="btn btn-info offset-3"  onclick="return comparePasswords()">Register</button>
+ <a href="/auth/google">
+            <img src="/images/google.png" alt="Google Signin" />
+        </a>
 <hr />
         Already have an account?  <a href="/auth/login" title="Login">Login</a>
 </fieldset>

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const { route } = require('.')
 const User = require('../models/user')
 
 router.get('/register', (req,res) => {
@@ -46,4 +47,16 @@ router.get('/logout',(req,res,next) => {
         res.redirect('/auth/login')
     })
 })
+router.get('/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile']
+}), (req, res) => {}
+)
+
+router.get('/google/callback', passport.authenticate('google', {
+failureRedirect: '/auth/login'
+}), (req, res) => {
+res.redirect('/details')
+})
+
 module.exports = router

@@ -14,37 +14,39 @@
     <!-- Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg bg-dark">
       <div class="container-fluid">
-        <a style="color:white" class="navbar-brand" href="/">Job Trackyee</a>
+        <a class="navbar-brand" href="#">
+      <img src="/images/logo.png" height="76">
+    </a>
+        <a style="color:white;" class="navbar-brand" href="/about">Job Trackyee</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
+         
             <li class="nav-item">
-              <a style="color:white" class="nav-link" href="/about">SiteInfo</a>
+              <a style="color:white; font-size:20px" class="nav-link" href="/details">ApplicationDetails</a>
             </li>
             <li class="nav-item">
-              <a style="color:white" class="nav-link" href="/details">ApplicationDetails</a>
-            </li>
-            <li class="nav-item">
-              <a style="color:white" class="nav-link" href="/role">Roles</a>
+              <a style="color:white; font-size:20px" class="nav-link" href="/role">Roles</a>
             </li>
           </ul>
           <ul class="navbar-nav ms-auto">
+         
             {{#if user}}
              <li class="nav-item">
-              <a class="nav-link" href="#">{{user.username}}</a>
+              <a style="font-size:20px;color:white" class="nav-link" href="#">{{user.username}}</a>
              </li>
             <li class="nav-item">
-              <a style="color:white" class="nav-link" href="/auth/logout">Logout</a>
+              <a style="color:white; font-size:20px" class="nav-link" href="/auth/logout">Logout</a>
             </li>
              {{else}}
 
             <li class="nav-item">
-              <a style="color:white" class="nav-link" href="/auth/register">Register</a>
+              <a style="color:white; font-size:20px" class="nav-link" href="/auth/register">Register</a>
             </li>
             <li class="nav-item">
-              <a style="color:white" class="nav-link" href="/auth/login">Login</a>
+              <a style="color:white; font-size:20px" class="nav-link" href="/auth/login">Login</a>
             </li>
                {{/if}}
 
@@ -54,5 +56,6 @@
       </div>
     </nav>
     {{{body}}}
+  
   </body>
 </html>

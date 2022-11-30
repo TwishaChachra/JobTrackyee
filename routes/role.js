@@ -2,6 +2,8 @@ const express = require('express')
 const Role = require('../models/role')
 const router = express.Router()
 
+const globals = require('./globalFunctions')
+
 router.get('/', (req, res) => {
     Role.find((err, role) => {
         if (err) {
@@ -15,12 +17,12 @@ router.get('/', (req, res) => {
         }
     })
 })
-router.get('/create', (req, res) => {
+router.get('/create',globals.isAuthenticated,(req, res) => {
     res.render('role/create', { title: 'Add Role'})
 })
 
 
-router.post('/create', (req, res) => {
+router.post('/create',globals.isAuthenticated ,(req, res) => {
     Role.create(req.body, (err, role) => {
         if (err) {
             console.log(err)

@@ -18,3 +18,16 @@ else{
     return true
 }
 }
+function showHidePassword() {
+    let password = document.getElementById('password')
+    let icon = document.getElementById('showHide')
+
+    if (password.type == 'password') {
+        password.type = 'text'
+        icon.src = '/images/hide.png'
+    }
+    else {
+        password.type = 'password'
+        icon.src = '/images/show.png'
+    }
+}

@@ -43,6 +43,22 @@ mongoose.connect(process.env.DATABASE_URL)
   passport.serializeUser(User.serializeUser())
   passport.deserializeUser(User.deserializeUser())
   
+  const googleStrategy = require('passport-google-oauth20').Strategy
+  passport.use(new googleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK_URL
+},
+  (accessToken, refreshToken, profile, done) => {
+    User.findOrCreate({ oauthId: profile.id }, {
+      username: profile.displayName,
+      oauthProvider: 'Google',
+      created: Date.now()
+    }, (err, user) => {
+      return done(err, user)
+    })
+  }
+))
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
