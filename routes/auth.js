@@ -4,11 +4,12 @@ const passport = require('passport')
 const { route } = require('.')
 const User = require('../models/user')
 
+//get method for register
 router.get('/register', (req,res) => {
     res.render('auth/register', {titile: 'User Registration'})
 
 })
-
+//post methid for register
 router.post('/register',(req,res) => {
 User.register(new User({username:req.body.username}), req.body.password,(err, user) => {
     if (err){
@@ -21,6 +22,7 @@ User.register(new User({username:req.body.username}), req.body.password,(err, us
     }
 })
 })
+//get method for login
 
 router.get('/login', (req,res) => {
     let messages = req.session.messages || []
@@ -31,12 +33,15 @@ router.get('/login', (req,res) => {
     })
 
 })
+//get method for login
+
 router.post('/login', passport.authenticate('local',{
     successRedirect:'/details',
     
     failureRedirect:'/auth/login',
     failureMessage:'Invalid Login'
 }))
+//get method for logout
 
 router.get('/logout',(req,res,next) => {
     req.session.messages = []

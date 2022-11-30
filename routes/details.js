@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
         }
     }).sort('name')
 })
-
+//Get method:create
 router.get('/create', globals.isAuthenticated,(req, res) => {
     Role.find((err, role) => {
         if (err) {
@@ -36,6 +36,7 @@ router.get('/create', globals.isAuthenticated,(req, res) => {
         }
     }).sort('name')   
 })
+//post method:create
 
 router.post('/create',globals.isAuthenticated,(req, res) => {
     Detail.create(req.body, (err, detail) => {
@@ -49,6 +50,7 @@ router.post('/create',globals.isAuthenticated,(req, res) => {
     })
 })
 
+//Get method:delete
 
 router.get('/delete/:_id',globals.isAuthenticated, (req, res) => {
     Detail.remove({ _id: req.params._id }, (err) => {
@@ -60,6 +62,7 @@ router.get('/delete/:_id',globals.isAuthenticated, (req, res) => {
         }
     })
 })
+//Get method:edit
 
 router.get('/edit/:_id', globals.isAuthenticated,(req, res) => {
     Detail.findById(req.params._id, (err, detail) => {
@@ -84,6 +87,7 @@ router.get('/edit/:_id', globals.isAuthenticated,(req, res) => {
         }
     })
 })
+//Post method:edit
 
 router.post('/edit/:_id',globals.isAuthenticated, (req, res) => {
     Detail.findByIdAndUpdate({ _id: req.params._id }, req.body, null, (err, detail) => {

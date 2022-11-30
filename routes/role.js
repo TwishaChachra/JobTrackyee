@@ -17,10 +17,13 @@ router.get('/', (req, res) => {
         }
     })
 })
+//Get method:create
+
 router.get('/create',globals.isAuthenticated,(req, res) => {
     res.render('role/create', { title: 'Add Role'})
 })
 
+//Post method:create
 
 router.post('/create',globals.isAuthenticated ,(req, res) => {
     Role.create(req.body, (err, role) => {
